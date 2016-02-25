@@ -24,6 +24,8 @@ TPscene.prototype.init = function (application) {
     this.quad = new MyQuad(this);
     this.cube = new MyUnitCube(this);
     this.cubeQuad = new MyUnitCubeQuad(this);
+    this.table = new MyTable(this);
+    this.floor = new MyFloor(this);
 
 };
 
@@ -75,10 +77,22 @@ TPscene.prototype.display = function () {
 
 	// ---- BEGIN Primitive drawing section
 	
-	this.cube.display();
+	//this.cube.display();
 	
-	this.translate(2, 0, 0);
-	this.cubeQuad.display();
+	/*this.translate(2, 0, 0);
+	this.cubeQuad.display();*/
+
+	this.translate(4, 0.05, 3);
+
+	this.pushMatrix();
+	this.translate(0, (3.5/2), 0);
+	this.table.display();
+	this.popMatrix();
+
+	this.pushMatrix();
+
+	this.floor.display();
+	this.popMatrix();
 
 	// ---- END Primitive drawing section
 	
