@@ -78,7 +78,7 @@ LightingScene.prototype.initLights = function() {
 
 	this.lights[1].setAmbient(0, 0, 0, 1);
 	this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
-	this.lights[1].enable();
+	//this.lights[1].enable();
 };
 
 LightingScene.prototype.updateLights = function() {
