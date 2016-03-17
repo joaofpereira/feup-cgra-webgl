@@ -25,7 +25,7 @@ LightingScene.prototype.init = function(application) {
 	// Scene elements
 	this.prism = new MyPrism(this, 8, 20);
 	this.cylinder = new MyCylinder(this, 8, 20);
-	this.lamp = new MyLamp(this, 8, 2);
+	this.lamp = new MyLamp(this, 8, 20);
 	this.circle = new MyCircle(this, 4);
 
 	// Materials
