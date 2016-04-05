@@ -9,7 +9,7 @@ var degToRad = Math.PI / 180;
 function MyUnitCubeQuad(scene) {
 	CGFobject.call(this,scene);
 
-	this.quad = new MyQuad(this.scene);
+	this.quad = new MyQuad(this.scene, 0.0, 1.0, 0.0, 1.0);
 };
 
 MyUnitCubeQuad.prototype = Object.create(CGFobject.prototype);

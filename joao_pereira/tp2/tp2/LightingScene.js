@@ -32,13 +32,13 @@ LightingScene.prototype.init = function(application) {
 	this.table = new MyTable(this);
 	this.wall = new Plane(this);
 	this.floor = new MyQuad(this);
-	
+
 	this.boardA = new Plane(this, BOARD_A_DIVISIONS);
 	this.boardB = new Plane(this, BOARD_B_DIVISIONS);
 
 	// Materials
 	this.materialDefault = new CGFappearance(this);
-	
+
 	this.materialA = new CGFappearance(this);
 	this.materialA.setAmbient(0.3,0.3,0.3,1);
 	this.materialA.setDiffuse(0.6,0.6,0.6,1);
@@ -48,39 +48,39 @@ LightingScene.prototype.init = function(application) {
 	this.materialB = new CGFappearance(this);
 	this.materialB.setAmbient(0.3,0.3,0.3,1);
 	this.materialB.setDiffuse(0.6,0.6,0.6,1);
-	this.materialB.setSpecular(0.8,0.8,0.8,1);	
+	this.materialB.setSpecular(0.8,0.8,0.8,1);
 	this.materialB.setShininess(120);
 
 	this.materialWood = new CGFappearance(this);
 	this.materialWood.setAmbient(0.3, 0.3, 0.3, 1);
 	this.materialWood.setDiffuse(0.4, 0.2, 0.0, 1);
-	this.materialWood.setSpecular(0.2, 0.1, 0.0, 1);	
+	this.materialWood.setSpecular(0.2, 0.1, 0.0, 1);
 	this.materialWood.setShininess(30);
 
 	this.materialMetal = new CGFappearance(this);
 	this.materialMetal.setAmbient(0.5, 0.5, 0.5, 1);
 	this.materialMetal.setDiffuse(0.5, 0.5, 0.5, 1);
-	this.materialMetal.setSpecular(0.7, 0.7, 0.7, 1);	
+	this.materialMetal.setSpecular(0.7, 0.7, 0.7, 1);
 	this.materialMetal.setShininess(110);
 
 	this.materialFloor = new CGFappearance(this);
 	this.materialFloor.setAmbient(0.3, 0.3, 0.3, 1);
 	this.materialFloor.setDiffuse(1.0, 0.69, 0.4, 1);
-	this.materialFloor.setSpecular(0.5, 0.3, 0.2, 1);	
+	this.materialFloor.setSpecular(0.5, 0.3, 0.2, 1);
 	this.materialFloor.setShininess(60);
 
 	this.materialLeftWall = new CGFappearance(this);
 	this.materialLeftWall.setAmbient(0.4, 0.4, 0.4, 1);
 	this.materialLeftWall.setDiffuse(0.6, 1.0, 0.6, 1);
-	this.materialLeftWall.setSpecular(0.2, 0.4, 0.2, 1);	
+	this.materialLeftWall.setSpecular(0.2, 0.4, 0.2, 1);
 	this.materialLeftWall.setShininess(70);
 
 	this.materialBackWall = new CGFappearance(this);
 	this.materialBackWall.setAmbient(0.4, 0.7, 0.9, 1);
 	this.materialBackWall.setDiffuse(0.4, 0.69, 1.0, 1);
-	this.materialBackWall.setSpecular(0.2, 0.3, 0.8, 1);	
+	this.materialBackWall.setSpecular(0.2, 0.3, 0.8, 1);
 	this.materialBackWall.setShininess(80);
-	
+
 };
 
 LightingScene.prototype.initCameras = function() {
@@ -89,11 +89,11 @@ LightingScene.prototype.initCameras = function() {
 
 LightingScene.prototype.initLights = function() {
 	this.setGlobalAmbientLight(0, 0, 0, 1.0);
-	
+
 	// Positions for four lights
 	this.lights[0].setPosition(4, 6, 1, 1);
 	this.lights[0].setVisible(true); // show marker on light position (different from enabled)
-	
+
 	this.lights[1].setPosition(10.5, 6.0, 1.0, 1.0);
 	this.lights[1].setVisible(true); // show marker on light position (different from enabled)
 
@@ -159,7 +159,7 @@ LightingScene.prototype.display = function() {
 
 	// ---- END Background, camera and axis setup
 
-	
+
 	// ---- BEGIN Geometric transformation section
 
 	// ---- END Geometric transformation section
@@ -209,7 +209,7 @@ LightingScene.prototype.display = function() {
 	this.pushMatrix();
 		this.translate(4, 4.5, 0.2);
 		this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
-		
+
 		this.materialA.apply();
 		this.boardA.display();
 	this.popMatrix();
@@ -218,7 +218,7 @@ LightingScene.prototype.display = function() {
 	this.pushMatrix();
 		this.translate(10.5, 4.5, 0.2);
 		this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
-		
+
 		this.materialB.apply();
 		this.boardB.display();
 	this.popMatrix();

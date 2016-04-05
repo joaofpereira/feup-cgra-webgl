@@ -14,7 +14,7 @@ MyTable.prototype.constructor=MyTable;
 
 MyTable.prototype.display = function () {
 	// base
-	this.scene.materialWood.apply();
+	this.scene.tableAppearance.apply();
 
 	this.scene.pushMatrix();
 	this.scene.translate(0, (3.5/2) + (0.3/2), 0);
