@@ -24,7 +24,7 @@ MyCylinder.prototype.initBuffers = function() {
  	this.vertices = [];
 
 	for (var n = 0, height = 0; n <= this.stacks; n++, height += incStack) {
-		for (var i = 0, alphaInc = 0; i < this.slices; i++, alphaInc += inc) {
+		for (var i = 0, alphaInc = 0; i <= this.slices; i++, alphaInc += inc) {
 			var x = Math.cos(alphaInc);
 			var y = Math.sin(alphaInc);
 
@@ -32,38 +32,23 @@ MyCylinder.prototype.initBuffers = function() {
 		}
 	}
 
-	/*for (var n = 0, height = 0; n <= this.stacks; n++, height += incStack) {
-		var x = Math.cos(2.0 * Math.PI);
-		var y = Math.sin(2.0 * Math.PI);
-
-		this.vertices.push(x, y, height);
-	}*/
-
 	// BEGIN --- generate indices
 	this.indices = [];
 
-	for (var i = 0; i < this.slices; i++) {
-		this.indices.push(i, i + 1, this.slices + i);
-
-		if (i < this.slices - 1)
-			this.indices.push(i + 1, this.slices + i + 1, this.slices + i);
-		else
-			this.indices.push(i + 1 - this.slices, i + 1, i);
+	for (var j = 0; j < this.stacks; j++) {
+		for (var i = 0; i < this.slices; i++) {
+			this.indices.push(i + (j * this.slices) + j, i + (j * this.slices) + j + 1, i + 1 + ((j + 1) * this.slices) + j + 1);
+			this.indices.push(i + 1 + ((j + 1) * this.slices) + j + 1, i + ((j + 1) * this.slices) + j + 1,  i + (j * this.slices) + j);
+		}
 	}
 
-	// remaining stacks indices
-	var numIndicesPerStack = this.indices.length;
-	for (var i = 1; i < this.stacks; i++) {
-		var prevStackStart = (i - 1) * numIndicesPerStack;
-
-		for (var j = 0; j < numIndicesPerStack; j++)
-			this.indices.push(this.indices[prevStackStart + j] + this.slices);
-	}
+	console.log(this.vertices);
+	console.log(this.indices);
 
 	// BEGIN --- generate normals
 	this.normals = [], normalsTemplate = []; 
 
-	var normalsTemplate = this.vertices.slice(0, this.slices * 3);
+	var normalsTemplate = this.vertices.slice(0, (this.slices + 1) * 3);
 
 	for (var i = 0; i <= this.stacks; i++)
 		this.normals.push.apply(this.normals, normalsTemplate);
@@ -74,15 +59,9 @@ MyCylinder.prototype.initBuffers = function() {
 	var deltaS = 1.0 / this.slices, deltaT = 1.0 / this.stacks;
 
 	for (var j = 0; j <= this.stacks; j++)
-		for (var i = 0; i < this.slices; i++)
+		for (var i = 0; i <= this.slices; i++)
 			this.texCoords.push(deltaS * i, deltaT * j);
 
-	/*for (var j = 0; j <= this.stacks; j++) {
-		this.texCoords.push(deltaS * this.slices, deltaT * j);
-	}*/
-
-
-	//console.log(this.texCoords);
 	
 	this.primitiveType = this.scene.gl.TRIANGLES;
 	this.initGLBuffers();
@@ -99,6 +78,7 @@ MyCylinder.prototype.display = function() {
 
 	this.scene.pushMatrix();
 	this.scene.translate(0, 0, 1);
+	this.scene.pillar.apply();
 	this.circle.display();
 	this.scene.popMatrix();
 };

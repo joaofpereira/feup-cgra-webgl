@@ -37,7 +37,7 @@ LightingScene.prototype.init = function(application) {
 	this.boardB = new Plane(this, BOARD_B_DIVISIONS);
 
 	this.prism = new MyPrism(this, 8, 20);
-	this.cylinder = new MyCylinder(this, 4, 1);
+	this.cylinder = new MyCylinder(this, 8, 20);
 	this.lamp = new MyLamp(this, 8, 20);
 	this.circle = new MyCircle(this, 4);
 
@@ -100,7 +100,7 @@ LightingScene.prototype.init = function(application) {
 	this.windowAppearance.loadTexture("../resources/images/window.png");
 	this.slidesAppearance.loadTexture("../resources/images/slides.png");
 	this.boardAppearance.loadTexture("../resources/images/board.png");
-	this.pillar.loadTexture("../resources/images/stone2.jpg");
+	this.pillar.loadTexture("../resources/images/stone.jpg");
 	this.windowAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 	this.slidesAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 };
@@ -188,7 +188,7 @@ LightingScene.prototype.display = function() {
 	//this.tableAppearance.apply();
 	//this.quad.display();
 
-	/*// Floor
+	// Floor
 	this.floorAppearance.apply();
 	this.pushMatrix();
 		this.translate(7.5, 0, 7.5);
@@ -214,7 +214,7 @@ LightingScene.prototype.display = function() {
 		this.wall.display();
 	this.popMatrix();
 
-	// First Table
+	/*// First Table
 	this.pushMatrix();
 		this.translate(5, (3.5/2), 8);
 		this.table.display();
@@ -224,7 +224,7 @@ LightingScene.prototype.display = function() {
 	this.pushMatrix();
 		this.translate(12, (3.5/2), 8);
 		this.table.display();
-	this.popMatrix();
+	this.popMatrix();*/
 
 	// Board A
 	this.pushMatrix();
@@ -242,15 +242,16 @@ LightingScene.prototype.display = function() {
 
 		this.boardAppearance.apply();
 		this.boardB.display();
-	this.popMatrix();*/
+	this.popMatrix();
 
 	// Prism
 	//this.prism.display();
 
 	// Cylinder
 	this.pushMatrix();
-	//this.translate(2, 1, 5);
-	//this.rotate(90*degToRad, 1, 0, 0);
+	this.translate(7, 0, 5);
+	this.rotate(-90*degToRad, 1, 0, 0);
+	this.scale(1, 1, 4);
 
 	this.pillar.apply();
 	this.cylinder.display();
