@@ -32,6 +32,13 @@ MyCylinder.prototype.initBuffers = function() {
 		}
 	}
 
+	/*for (var n = 0, height = 0; n <= this.stacks; n++, height += incStack) {
+		var x = Math.cos(2.0 * Math.PI);
+		var y = Math.sin(2.0 * Math.PI);
+
+		this.vertices.push(x, y, height);
+	}*/
+
 	// BEGIN --- generate indices
 	this.indices = [];
 
@@ -61,6 +68,22 @@ MyCylinder.prototype.initBuffers = function() {
 	for (var i = 0; i <= this.stacks; i++)
 		this.normals.push.apply(this.normals, normalsTemplate);
 
+	// BEGIN --- generate texture coordinates
+	this.texCoords = [];
+
+	var deltaS = 1.0 / this.slices, deltaT = 1.0 / this.stacks;
+
+	for (var j = 0; j <= this.stacks; j++)
+		for (var i = 0; i < this.slices; i++)
+			this.texCoords.push(deltaS * i, deltaT * j);
+
+	/*for (var j = 0; j <= this.stacks; j++) {
+		this.texCoords.push(deltaS * this.slices, deltaT * j);
+	}*/
+
+
+	//console.log(this.texCoords);
+	
 	this.primitiveType = this.scene.gl.TRIANGLES;
 	this.initGLBuffers();
 };
@@ -70,6 +93,7 @@ MyCylinder.prototype.display = function() {
 
 	this.scene.pushMatrix();
 	this.scene.rotate(Math.PI, 0, 1, 0);
+	this.scene.pillar.apply();
 	this.circle.display();
 	this.scene.popMatrix();
 

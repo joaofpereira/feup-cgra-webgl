@@ -33,28 +33,28 @@ LightingScene.prototype.init = function(application) {
 	this.wall = new Plane(this);
 	this.leftWall = new MyQuad(this, -0.5, 1.5, -0.5, 1.5);
 	this.floor = new MyQuad(this, -2.5, 2.5, -3.0, 3.0);
-	this.boardA = new Plane(this, BOARD_A_DIVISIONS);
+	this.boardA = new Plane(this, BOARD_A_DIVISIONS, -0.25, 1.25, 0, 1);
 	this.boardB = new Plane(this, BOARD_B_DIVISIONS);
 
 	this.prism = new MyPrism(this, 8, 20);
-	this.cylinder = new MyCylinder(this, 8, 20);
+	this.cylinder = new MyCylinder(this, 4, 1);
 	this.lamp = new MyLamp(this, 8, 20);
 	this.circle = new MyCircle(this, 4);
 
 	// Materials
 	this.materialDefault = new CGFappearance(this);
 
-	this.materialA = new CGFappearance(this);
-	this.materialA.setAmbient(0.3,0.3,0.3,1);
-	this.materialA.setDiffuse(0.6,0.6,0.6,1);
-	this.materialA.setSpecular(0.2, 0.2, 0.2, 1);
-	this.materialA.setShininess(120);
+	this.slidesAppearance = new CGFappearance(this);
+	this.slidesAppearance.setAmbient(0.3,0.3,0.3,1);
+	this.slidesAppearance.setDiffuse(0.6,0.6,0.6,1);
+	this.slidesAppearance.setSpecular(0.2, 0.2, 0.2, 1);
+	this.slidesAppearance.setShininess(30);
 
-	this.materialB = new CGFappearance(this);
-	this.materialB.setAmbient(0.3,0.3,0.3,1);
-	this.materialB.setDiffuse(0.6,0.6,0.6,1);
-	this.materialB.setSpecular(0.8,0.8,0.8,1);
-	this.materialB.setShininess(120);
+	this.boardAppearance = new CGFappearance(this);
+	this.boardAppearance.setAmbient(0.3,0.3,0.3,1);
+	this.boardAppearance.setDiffuse(0.6,0.6,0.6,1);
+	this.boardAppearance.setSpecular(0.8,0.8,0.8,1);
+	this.boardAppearance.setShininess(120);
 
 	this.tableAppearance = new CGFappearance(this);
 	this.tableAppearance.setAmbient(0.3,0.3,0.3,1);
@@ -86,13 +86,23 @@ LightingScene.prototype.init = function(application) {
 	this.materialBackWall.setSpecular(0.2, 0.3, 0.8, 1);
 	this.materialBackWall.setShininess(80);
 
+	this.pillar = new CGFappearance(this);
+	this.pillar.setAmbient(0.4, 0.7, 0.9, 1);
+	this.pillar.setDiffuse(0.4, 0.69, 1.0, 1);
+	this.pillar.setSpecular(0.2, 0.3, 0.8, 1);
+	this.pillar.setShininess(80);
+
 	// Textures
 	this.enableTextures(true);
 
 	this.tableAppearance.loadTexture("../resources/images/table.png");
 	this.floorAppearance.loadTexture("../resources/images/floor.png");
 	this.windowAppearance.loadTexture("../resources/images/window.png");
+	this.slidesAppearance.loadTexture("../resources/images/slides.png");
+	this.boardAppearance.loadTexture("../resources/images/board.png");
+	this.pillar.loadTexture("../resources/images/stone2.jpg");
 	this.windowAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+	this.slidesAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 };
 
 LightingScene.prototype.initCameras = function() {
@@ -178,7 +188,7 @@ LightingScene.prototype.display = function() {
 	//this.tableAppearance.apply();
 	//this.quad.display();
 
-	// Floor
+	/*// Floor
 	this.floorAppearance.apply();
 	this.pushMatrix();
 		this.translate(7.5, 0, 7.5);
@@ -221,7 +231,7 @@ LightingScene.prototype.display = function() {
 		this.translate(4, 4.5, 0.2);
 		this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
 
-		this.materialA.apply();
+		this.slidesAppearance.apply();
 		this.boardA.display();
 	this.popMatrix();
 
@@ -230,15 +240,21 @@ LightingScene.prototype.display = function() {
 		this.translate(10.5, 4.5, 0.2);
 		this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
 
-		this.materialB.apply();
+		this.boardAppearance.apply();
 		this.boardB.display();
-	this.popMatrix();
+	this.popMatrix();*/
 
 	// Prism
 	//this.prism.display();
 
 	// Cylinder
-	//this.cylinder.display();
+	this.pushMatrix();
+	//this.translate(2, 1, 5);
+	//this.rotate(90*degToRad, 1, 0, 0);
+
+	this.pillar.apply();
+	this.cylinder.display();
+	this.popMatrix();
 
 	// Circle
 	//this.circle.display();
