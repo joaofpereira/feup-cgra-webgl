@@ -112,11 +112,13 @@ LightingScene.prototype.init = function(application) {
 
 	this.windowAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 	this.slidesAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-};
+
+	this.setUpdatePeriod(1000);
+}
 
 LightingScene.prototype.initCameras = function() {
 	this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
-};
+}
 
 LightingScene.prototype.initLights = function() {
 	this.setGlobalAmbientLight(0, 0 , 0, 1);
@@ -159,11 +161,22 @@ LightingScene.prototype.initLights = function() {
 	this.lights[3].setLinearAttenuation(0.0);
 	this.lights[3].setQuadraticAttenuation(1.0);
 	this.lights[3].enable();
-};
+}
 
 LightingScene.prototype.updateLights = function() {
 	for (i = 0; i < this.lights.length; i++)
 		this.lights[i].update();
+}
+
+LightingScene.prototype.update = function(currTime) {
+	currTime -= 1000;
+
+	this.lastTime = this.lastTime || 0;
+
+	this.deltaTime = currTime - this.lastTime;
+	this.lastTime = currTime;
+
+	this.clock.update(this.deltaTime);
 }
 
 LightingScene.prototype.display = function() {
@@ -274,10 +287,11 @@ LightingScene.prototype.display = function() {
 
 	this.pushMatrix();
 	this.translate(7.2, 7.3, 0);
-	this.scale(0.6, 0.6, 0.1)
+	this.scale(0.6, 0.6, 0.1);
 	this.materialDefault.apply();
 	this.clock.display();
 	this.popMatrix();
 
 	// ---- END Primitive drawing section
-};
+}
+
