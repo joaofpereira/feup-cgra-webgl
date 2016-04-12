@@ -41,6 +41,7 @@ LightingScene.prototype.init = function(application) {
 	this.lamp = new MyLamp(this, 8, 20);
 	this.circle = new MyCircle(this, 4);
 	this.clock = new MyClock(this);
+	this.paperPlane = new MyPaperPlane(this);
 
 	// Materials
 	this.materialDefault = new CGFappearance(this);
@@ -99,6 +100,12 @@ LightingScene.prototype.init = function(application) {
 	this.clockAppearance.setSpecular(1, 1, 1, 1);
 	this.clockAppearance.setShininess(20);
 
+	this.paperAppearance = new CGFappearance(this.scene);
+	this.paperAppearance.setAmbient(0.1, 0.1, 0.1, 1);
+	this.paperAppearance.setDiffuse(0.8, 0.8, 0.8, 1);
+	this.paperAppearance.setSpecular(0.1, 0.1, 0.1, 1);	
+	this.paperAppearance.setShininess(30);
+
 	// Textures
 	this.enableTextures(true);
 
@@ -113,7 +120,7 @@ LightingScene.prototype.init = function(application) {
 	this.windowAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 	this.slidesAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
-	this.setUpdatePeriod(1000);
+	this.setUpdatePeriod(10);
 }
 
 LightingScene.prototype.initCameras = function() {
@@ -177,6 +184,7 @@ LightingScene.prototype.update = function(currTime) {
 	this.lastTime = currTime;
 
 	this.clock.update(this.deltaTime);
+	this.paperPlane.update(this.deltaTime);
 }
 
 LightingScene.prototype.display = function() {
@@ -236,7 +244,7 @@ LightingScene.prototype.display = function() {
 		this.wall.display();
 	this.popMatrix();
 
-	/*// First Table
+	// First Table
 	this.pushMatrix();
 		this.translate(5, (3.5/2), 8);
 		this.table.display();
@@ -246,7 +254,7 @@ LightingScene.prototype.display = function() {
 	this.pushMatrix();
 		this.translate(12, (3.5/2), 8);
 		this.table.display();
-	this.popMatrix();*/
+	this.popMatrix();
 
 	// Board A
 	this.pushMatrix();
@@ -290,6 +298,11 @@ LightingScene.prototype.display = function() {
 	this.scale(0.6, 0.6, 0.1);
 	this.materialDefault.apply();
 	this.clock.display();
+	this.popMatrix();
+
+	this.pushMatrix();
+	this.materialDefault.apply();
+	this.paperPlane.display();
 	this.popMatrix();
 
 	// ---- END Primitive drawing section
