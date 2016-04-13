@@ -184,7 +184,7 @@ LightingScene.prototype.update = function(currTime) {
 	this.lastTime = currTime;
 
 	this.clock.update(this.deltaTime);
-	this.paperPlane.update(this.deltaTime);
+	//this.paperPlane.update(this.deltaTime);
 }
 
 LightingScene.prototype.display = function() {
@@ -301,6 +301,7 @@ LightingScene.prototype.display = function() {
 	this.popMatrix();
 
 	this.pushMatrix();
+	this.translate(0, 0.3, 0);
 	this.materialDefault.apply();
 	this.paperPlane.display();
 	this.popMatrix();
