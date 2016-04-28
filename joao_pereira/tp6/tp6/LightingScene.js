@@ -42,6 +42,7 @@ LightingScene.prototype.init = function(application) {
 	this.circle = new MyCircle(this, 4);
 	this.clock = new MyClock(this);
 	this.paperPlane = new MyPaperPlane(this);
+	this.drone = new MyDrone(this);
 
 	// Materials
 	this.materialDefault = new CGFappearance(this);
@@ -120,11 +121,24 @@ LightingScene.prototype.init = function(application) {
 	this.windowAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 	this.slidesAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
-	this.setUpdatePeriod(10);
+	this.setUpdatePeriod(100);
 
-	this.option1 = true;
-	this.option2 = false;
+	this.pauseResumeClock = false;
+	
 	this.speed = 3;
+
+	this.light0 = true;
+	this.light1 = true;
+	this.light2 = true;
+	this.light3 = true;
+
+	this.rotateLeft = false;
+	this.rotateRight = false;
+	this.moveForward = false;
+	this.moveBack = false;
+
+	this.moveSpeed = 0.5;
+	this.rotationSpeed = 5;
 }
 
 LightingScene.prototype.initCameras = function() {
@@ -187,8 +201,27 @@ LightingScene.prototype.update = function(currTime) {
 	this.deltaTime = currTime - this.lastTime;
 	this.lastTime = currTime;
 
-	this.clock.update(this.deltaTime);
+	if(!this.pauseResumeClock)
+		this.clock.update(this.deltaTime);
 	//this.paperPlane.update(this.deltaTime);
+
+	if(this.rotateLeft)
+		this.drone.rotateLeft(this.rotationSpeed);
+	
+	if(this.rotateRight)
+		this.drone.rotateRight(this.rotationSpeed);
+
+	if(this.moveForward)
+		this.drone.moveForward(this.moveSpeed);
+
+	if(this.moveBack)
+		this.drone.moveBack(this.moveSpeed);
+
+	// Lights Group Control
+	this.light0 ? this.lights[0].enable() : this.lights[0].disable();
+	this.light1 ? this.lights[1].enable() : this.lights[1].disable();
+	this.light2 ? this.lights[2].enable() : this.lights[2].disable();
+	this.light3 ? this.lights[3].enable() : this.lights[3].disable();
 }
 
 LightingScene.prototype.display = function() {
@@ -309,9 +342,16 @@ LightingScene.prototype.display = function() {
 	this.paperPlane.display();
 	this.popMatrix();*/
 
+	this.pushMatrix();
+	this.translate(7.5, 0, 7.5);
+	this.rotate(210 * degToRad, 0, 1, 0);
+	this.materialDefault.apply();
+	this.drone.display();
+	this.popMatrix();
+
 	// ---- END Primitive drawing section
 }
 
-LightingScene.prototype.doSomething = function() {
-	console.log("doing something");
+LightingScene.prototype.pauseClock = function() {
+	this.pauseResumeClock ? this.pauseResumeClock = false : this.pauseResumeClock = true;
 }

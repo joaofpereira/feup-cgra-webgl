@@ -5,8 +5,8 @@
 function MyClock(scene) {
 	CGFobject.call(this, scene);
 
-	this.body = new MyCylinder(this.scene, 12, 1, false);
-	this.circle = new MyCircle(this.scene, 12);
+	this.body = new MyCylinder(this.scene, 24, 1, false);
+	this.circle = new MyCircle(this.scene, 24);
 
 	this.hours = new MyClockHand(this.scene, 0.045, 0.6, 0.01);
 	this.minutes = new MyClockHand(this.scene, 0.025, 0.7, 0.01);

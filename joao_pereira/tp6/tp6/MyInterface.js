@@ -24,24 +24,6 @@ MyInterface.prototype.init = function(application) {
 	//  http://workshop.chromeexperiments.com/examples/gui
 	
 	this.gui = new dat.GUI();
-
-	// add a button:
-	// the first parameter is the object that is being controlled (in this case the scene)
-	// the identifier 'doSomething' must be a function declared as part of that object (i.e. a member of the scene class)
-	// e.g. LightingScene.prototype.doSomething = function () { console.log("Doing something..."); }; 
-
-	this.gui.add(this.scene, 'doSomething');	
-
-	// add a group of controls (and open/expand by defult)
-	
-	var group=this.gui.addFolder("Options");
-	group.open();
-
-	// add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
-	// e.g. this.option1=true; this.option2=false;
-	
-	group.add(this.scene, 'option1');
-	group.add(this.scene, 'option2');
 	
 	// add a slider
 	// must be a numeric variable of the scene, initialized in scene.init e.g.
@@ -50,6 +32,18 @@ MyInterface.prototype.init = function(application) {
 	
 	this.gui.add(this.scene, 'speed', -5, 5);
 
+	// Lights Group Checkbox
+	var lights = this.gui.addFolder("Lights");
+
+	lights.add(this.scene, 'light0');
+	lights.add(this.scene, 'light1');
+	lights.add(this.scene, 'light2');
+	lights.add(this.scene, 'light3');
+
+	lights.open();
+
+	this.gui.add(this.scene, 'pauseClock');
+
 	return true;
 };
 
@@ -57,7 +51,7 @@ MyInterface.prototype.init = function(application) {
  * processKeyboard
  * @param event {Event}
  */
-MyInterface.prototype.processKeyboard = function(event) {
+/*MyInterface.prototype.processKeyboard = function(event) {
 	// call CGFinterface default code (omit if you want to override)
 	CGFinterface.prototype.processKeyboard.call(this,event);
 	
@@ -69,5 +63,53 @@ MyInterface.prototype.processKeyboard = function(event) {
 	{
 		case (65):	// only works for capital 'A', as it is
 			console.log("Key 'A' pressed");
+	};
+};*/
+
+MyInterface.prototype.processKeyDown = function(event) {
+	CGFinterface.prototype.processKeyDown.call(this,event);
+
+	switch (event.keyCode)
+	{
+		case (65):	// only works for capital 'A', as it is
+			this.scene.rotateLeft = true;
+			console.log("Key 'A' pressed");
+			break;
+		case (68):	// only works for capital 'D', as it is
+			this.scene.rotateRight = true;
+			console.log("Key 'D' pressed");
+			break;
+		case (87):	// only works for capital 'W', as it is
+			this.scene.moveForward = true;
+			console.log("Key 'W' pressed");
+			break;
+		case (83):	// only works for capital 'S', as it is
+			this.scene.moveBack = true;
+			console.log("Key 'S' pressed");
+			break;
+	};
+};
+
+MyInterface.prototype.processKeyUp = function(event) {
+	CGFinterface.prototype.processKeyUp.call(this,event);
+
+	switch (event.keyCode)
+	{
+		case (65):	// only works for capital 'A', as it is
+			this.scene.rotateLeft = false;
+			console.log("Key 'A' released");
+			break;
+		case (68):	// only works for capital 'D', as it is
+			this.scene.rotateRight = false;
+			console.log("Key 'D' released");
+			break;
+		case (87):	// only works for capital 'W', as it is
+			this.scene.moveForward = false;
+			console.log("Key 'W' released");
+			break;
+		case (83):	// only works for capital 'S', as it is
+			this.scene.moveBack = false;
+			console.log("Key 'S' released");
+			break;
 	};
 };

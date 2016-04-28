@@ -43,7 +43,7 @@ MyCircle.prototype.initBuffers = function() {
 	
 	for (var i = 0, alphaInc = 0; i < this.slices; i++, alphaInc += inc) {
 		var s = Math.cos(alphaInc) * 0.5 + 0.5;
-		var t = Math.sin(alphaInc) * 0.5 + 0.5;
+		var t = 0.5 - Math.sin(alphaInc) * 0.5;
 
 		this.texCoords.push(s, t);
 	}
